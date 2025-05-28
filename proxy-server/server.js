@@ -3,7 +3,7 @@ const axios = require('axios');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } = require('@google/generative-ai');
-const dotenv = require('dotenv');
+
 const db = require('./models'); // Imports from models/index.js
 
 dotenv.config();
