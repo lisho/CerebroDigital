@@ -1,0 +1,6 @@
+{
+  "name": "Digital Brain for Social Workers",
+  "description": "An AI-assisted comprehensive digital tool to support social workers in their daily tasks, providing quick information, resource suggestions, and case note assistance. Powered by Gemini API.",
+  "requestFramePermissions": [],
+  "prompt": ""
+}

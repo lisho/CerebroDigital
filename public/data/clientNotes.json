@@ -1,0 +1,99 @@
+
+[
+  { 
+    "id": "note1", 
+    "title": "Consulta Inicial - Emma Harper", 
+    "content": "Emma expresó preocupaciones sobre estabilidad de vivienda. Actualmente desempleada, buscando asistencia con solicitudes de empleo y opciones de refugio de emergencia. Se exploraron recursos locales. Refiere buena red de apoyo informal con Ana Torres. Se asignó tarea de seguimiento para la próxima semana. Mostró disposición para colaborar.", 
+    "date": "2024-01-10", 
+    "tags": ["vivienda", "desempleo", "Emma Harper", "primera consulta"],
+    "caseId": "case1"
+  },
+  { 
+    "id": "note2", 
+    "title": "Seguimiento - Ethan Walker", 
+    "content": "Se discutió el progreso en las metas de habilidades sociales. Ethan informa sentirse más cómodo en interacciones grupales pequeñas. Se practicaron técnicas de comunicación asertiva. Referido a grupo de apoyo local \"Conectando\". Próxima cita en dos semanas para evaluar participación en el grupo.", 
+    "date": "2024-07-25", 
+    "tags": ["salud mental", "habilidades sociales", "Ethan Walker", "seguimiento"],
+    "caseId": "case2"
+  },
+  {
+    "id": "note3",
+    "title": "Contacto Telefónico - Emma Harper",
+    "content": "Emma llamó para actualizar sobre su búsqueda de empleo. Envió 3 solicitudes esta semana. Sigue preocupada por la vivienda, pero Ana Torres le está ofreciendo apoyo temporal. Se le recordó la cita de seguimiento.",
+    "date": "2024-01-17",
+    "tags": ["seguimiento", "empleo", "vivienda", "Emma Harper"],
+    "caseId": "case1"
+  },
+  {
+    "id": "note4",
+    "title": "Revisión de Caso - Noah Bennett",
+    "content": "Revisión inicial de la documentación de Noah Bennett. Presenta una situación compleja que requiere evaluación multidisciplinar. Se ha programado una reunión de equipo para discutir el plan de intervención. Necesidad de recopilar más información sobre su red de apoyo.",
+    "date": "2024-02-22",
+    "tags": ["nuevo caso", "evaluación", "Noah Bennett", "planificación"],
+    "caseId": "case4"
+  },
+  {
+    "id": "noteLucas1",
+    "title": "Seguimiento escolar Lucas Harper",
+    "content": "Se contactó con la escuela de Lucas Harper para discutir su progreso académico. La maestra reporta buen desempeño general, pero sugiere apoyo adicional en matemáticas. Se acordó reunión con la familia la próxima semana para discutir estrategias.",
+    "date": "2024-07-20",
+    "tags": ["escolar", "seguimiento", "Lucas Harper", "matemáticas"],
+    "caseId": "case1"
+  },
+  { 
+    "id": "eventTest-note-case1-1", 
+    "title": "Revisión de plan de empleo con Emma Harper", 
+    "content": "Emma Harper asistió a la sesión de planificación de empleo. Se definieron objetivos a corto plazo y se identificaron posibles barreras. Mostró motivación.", 
+    "date": "2024-02-15", 
+    "tags": ["empleo", "planificación", "Emma Harper"],
+    "caseId": "case1"
+  },
+  { 
+    "id": "eventTest-note-case1-2", 
+    "title": "Llamada de seguimiento sobre taller de Lucas Harper", 
+    "content": "Se conversó con Emma Harper sobre la participación de Lucas en el taller de habilidades. Reporta que Lucas disfrutó la actividad y quiere continuar.", 
+    "date": "2024-03-10", 
+    "tags": ["taller", "seguimiento", "Lucas Harper"],
+    "caseId": "case1"
+  },
+  { 
+    "id": "eventTest-note-case1-3", 
+    "title": "Crisis de vivienda temporal para Emma Harper", 
+    "content": "Emma contactó urgentemente por una situación de vivienda inesperada. Se exploraron opciones de refugio temporal de emergencia. Ana Torres ofreció ayuda inicial.", 
+    "date": "2024-04-05", 
+    "tags": ["vivienda", "crisis", "Emma Harper"],
+    "caseId": "case1"
+  },
+  { 
+    "id": "eventTest-note-case1-4", 
+    "title": "Discusión sobre opciones de guardería para Lucas Harper", 
+    "content": "Emma Harper solicitó información sobre guarderías asequibles para Lucas. Se proporcionó lista de centros y se discutió el proceso de solicitud.", 
+    "date": "2024-05-20", 
+    "tags": ["guardería", "Lucas Harper", "recursos"],
+    "caseId": "case1"
+  },
+  { 
+    "id": "eventTest-note-case1-5", 
+    "title": "Emma Harper reporta inicio de nuevo trabajo", 
+    "content": "Emma Harper informó que comenzó un nuevo trabajo a tiempo parcial. Se discutieron los ajustes necesarios y el impacto en su búsqueda de vivienda.", 
+    "date": "2024-06-10", 
+    "tags": ["empleo", "actualización", "Emma Harper"],
+    "caseId": "case1"
+  },
+  { 
+    "id": "eventTest-note-case1-6", 
+    "title": "Ana Torres informa mudanza. Emma Harper preocupada.", 
+    "content": "Ana Torres, conviviente de Emma, informó que se mudará a fin de mes. Emma Harper expresó preocupación por el aumento de gastos y la posible necesidad de buscar nueva vivienda.", 
+    "date": "2024-07-02", 
+    "tags": ["convivencia", "vivienda", "Emma Harper", "Ana Torres"],
+    "caseId": "case1"
+  },
+  { 
+    "id": "eventTest-note-case1-7", 
+    "title": "Lucas Harper muestra dificultades de adaptación al cambio", 
+    "content": "Emma Harper reporta que Lucas está teniendo algunas dificultades emocionales debido a la noticia de la mudanza de Ana Torres. Se sugirió observación y posible apoyo.", 
+    "date": "2024-07-10", 
+    "tags": ["adaptación", "Lucas Harper", "emocional"],
+    "caseId": "case1"
+  }
+]

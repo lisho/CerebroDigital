@@ -1,0 +1,103 @@
+
+[
+  { 
+    "id": "case1", "clientName": "Emma Harper", "status": "Abierto", "assignedTo": "Olivia Bennett", "avatarUrl": "https://i.pravatar.cc/150?u=emmaharper", "dateOpened": "2024-01-10", "lastUpdate": "2024-07-28", "description": "Cliente necesita ayuda con la vivienda y la búsqueda de empleo. Presenta buena disposición y ha completado la documentación inicial.",
+    "compositionHistory": [
+      {
+        "recordId": "comp1-1", "effectiveDate": "2024-01-10",
+        "familyUnit": [
+          { "id": "p1", "fullName": "Emma Harper", "relationshipToCaseHolder": "Ella misma", "dateOfBirth": "1985-05-15" },
+          { "id": "p2", "fullName": "Lucas Harper", "relationshipToCaseHolder": "Hijo", "dateOfBirth": "2010-02-20" }
+        ],
+        "householdUnit": [
+          { "id": "p1", "fullName": "Emma Harper", "isFamilyMember": true, "dateOfBirth": "1985-05-15" },
+          { "id": "p2", "fullName": "Lucas Harper", "isFamilyMember": true, "dateOfBirth": "2010-02-20" },
+          { "id": "p3", "fullName": "Ana Torres", "isFamilyMember": false, "cohabitationNotes": "Amiga, comparte gastos", "dateOfBirth": "1988-07-01"}
+        ],
+        "notes": "Composición inicial al abrir el caso."
+      },
+      {
+        "recordId": "eventTest-comp1-2", "effectiveDate": "2024-07-01",
+        "familyUnit": [
+          { "id": "p1", "fullName": "Emma Harper", "relationshipToCaseHolder": "Ella misma", "dateOfBirth": "1985-05-15" },
+          { "id": "p2", "fullName": "Lucas Harper", "relationshipToCaseHolder": "Hijo", "dateOfBirth": "2010-02-20" }
+        ],
+        "householdUnit": [
+          { "id": "p1", "fullName": "Emma Harper", "isFamilyMember": true, "dateOfBirth": "1985-05-15" },
+          { "id": "p2", "fullName": "Lucas Harper", "isFamilyMember": true, "dateOfBirth": "2010-02-20" }
+        ],
+        "notes": "Ana Torres se mudó. Emma y Lucas ahora viven solos."
+      }
+    ]
+  },
+  { 
+    "id": "case2", "clientName": "Ethan Walker", "status": "En Progreso", "assignedTo": "Daniel Chen", "avatarUrl": "https://i.pravatar.cc/150?u=ethanwalker", "dateOpened": "2023-12-05", "lastUpdate": "2024-07-25", "description": "Seguimiento de plan de acción para la mejora de habilidades sociales. Asiste regularmente a talleres.",
+    "compositionHistory": [
+      {
+        "recordId": "comp2-1", "effectiveDate": "2023-12-05",
+        "familyUnit": [ { "id": "p4", "fullName": "Ethan Walker", "relationshipToCaseHolder": "Él mismo", "dateOfBirth": "1990-11-03" } ],
+        "householdUnit": [ { "id": "p4", "fullName": "Ethan Walker", "isFamilyMember": true, "dateOfBirth": "1990-11-03" } ],
+        "notes": "Vive solo."
+      }
+    ]
+  },
+  { 
+    "id": "case3", "clientName": "Sophia Mitchell", "status": "Cerrado", "assignedTo": "Emily Brown", "avatarUrl": "https://i.pravatar.cc/150?u=sophiamitchell", "dateOpened": "2023-06-15", "lastUpdate": "2024-05-10", "description": "Objetivos cumplidos en relación a la reunificación familiar. Caso cerrado con éxito.",
+    "compositionHistory": [
+       {
+        "recordId": "comp3-2", "effectiveDate": "2024-03-01",
+        "familyUnit": [
+          { "id": "p5", "fullName": "Sophia Mitchell", "relationshipToCaseHolder": "Ella misma", "dateOfBirth": "1978-03-22" },
+          { "id": "p6", "fullName": "David Mitchell", "relationshipToCaseHolder": "Cónyuge", "dateOfBirth": "1975-09-10" },
+          { "id": "p7", "fullName": "Chloe Mitchell", "relationshipToCaseHolder": "Hija", "dateOfBirth": "2005-12-01" }
+        ],
+        "householdUnit": [
+          { "id": "p5", "fullName": "Sophia Mitchell", "isFamilyMember": true, "dateOfBirth": "1978-03-22" },
+          { "id": "p6", "fullName": "David Mitchell", "isFamilyMember": true, "dateOfBirth": "1975-09-10" },
+          { "id": "p7", "fullName": "Chloe Mitchell", "isFamilyMember": true, "dateOfBirth": "2005-12-01" }
+        ],
+        "notes": "Reunificación familiar completada."
+      },
+      {
+        "recordId": "comp3-1", "effectiveDate": "2023-06-15",
+        "familyUnit": [ { "id": "p5", "fullName": "Sophia Mitchell", "relationshipToCaseHolder": "Ella misma", "dateOfBirth": "1978-03-22" } ],
+        "householdUnit": [ { "id": "p5", "fullName": "Sophia Mitchell", "isFamilyMember": true, "dateOfBirth": "1978-03-22" } ],
+        "notes": "Inicialmente vivía sola durante el proceso."
+      }
+    ]
+  },
+  { 
+    "id": "case4", "clientName": "Noah Bennett", "status": "Abierto", "assignedTo": "Christopher Reed", "avatarUrl": "https://i.pravatar.cc/150?u=noahbennett", "dateOpened": "2024-02-20", "lastUpdate": "2024-07-29", "description": "Nueva admisión. Pendiente de evaluación inicial y diseño de plan de intervención.",
+    "compositionHistory": []
+  },
+  { 
+    "id": "case5", "clientName": "Ava Reynolds", "status": "En Progreso", "assignedTo": "Sophia Evans", "avatarUrl": "https://i.pravatar.cc/150?u=avareynolds", "dateOpened": "2024-01-05", "lastUpdate": "2024-07-22", "description": "Participando en talleres grupales de manejo de estrés. Muestra avances significativos.",
+    "compositionHistory": [
+      {
+        "recordId": "comp5-1", "effectiveDate": "2024-01-05",
+        "familyUnit": [
+            { "id": "p8", "fullName": "Ava Reynolds", "relationshipToCaseHolder": "Ella misma", "dateOfBirth": "1995-06-30"},
+            { "id": "p9", "fullName": "Liam Reynolds", "relationshipToCaseHolder": "Hermano", "dateOfBirth": "1992-01-15"}
+        ],
+        "householdUnit": [
+            { "id": "p8", "fullName": "Ava Reynolds", "isFamilyMember": true, "dateOfBirth": "1995-06-30"},
+            { "id": "p9", "fullName": "Liam Reynolds", "isFamilyMember": true, "dateOfBirth": "1992-01-15"}
+        ],
+        "notes": "Convive con su hermano."
+      }
+    ]
+  },
+  { 
+    "id": "case6", "clientName": "Liam Rodriguez", "status": "Abierto", "assignedTo": "Olivia Bennett", "avatarUrl": "https://i.pravatar.cc/150?u=liamrodriguez", "dateOpened": "2024-03-01", "lastUpdate": "2024-07-15", "description": "Necesita apoyo para acceso a recursos comunitarios de alimentación y asistencia legal.",
+    "compositionHistory": [
+       {
+        "recordId": "comp6-1", "effectiveDate": "2024-03-01",
+        "familyUnit": [],
+        "householdUnit": [
+            { "id": "p10", "fullName": "Liam Rodriguez", "isFamilyMember": false, "cohabitationNotes": "Vive solo", "dateOfBirth": "1960-08-08" }
+        ],
+        "notes": "Reporta vivir solo actualmente."
+      }
+    ]
+  }
+]
