@@ -55,6 +55,33 @@ interface GoJSGenogramDiagramProps {
 }
 
 /**
+ * Helper function to create a node template for the Genogram.
+ * Moved outside the component for better organization and to avoid re-definition.
+ * @param {typeof go} goInstance - The GoJS library instance.
+ * @param {string} baseColor - The base fill color for the node's shape.
+ * @param {string} figureName - The name of the GoJS figure (e.g., "Square", "Circle").
+ * @returns {go.Node} A GoJS Node template.
+ */
+const createGenogramNodeTemplate = (goInstance: typeof go, baseColor: string, figureName: string): go.Node => {
+  const $ = goInstance.GraphObject.make;
+  return $(goInstance.Node, "Vertical",
+    { locationSpot: goInstance.Spot.Center, selectionObjectName: "NODE_PANEL_SHAPE" },
+    $(goInstance.Panel, // Panel to hold the shape
+      { name: "NODE_PANEL_SHAPE" }, // This panel will show selection indication
+      $(goInstance.Shape, figureName,
+        { width: 50, height: 50, fill: baseColor, strokeWidth: 2, stroke: "black" },
+        // Bind the Shape's fill to the selection state of its parent Panel (NODE_PANEL_SHAPE),
+        // which reflects the Node's selection state.
+        new goInstance.Binding("fill", "isSelected", (isSelected: boolean) => isSelected ? goInstance.Brush.darken(baseColor) : baseColor).ofObject("NODE_PANEL_SHAPE")
+      )
+    ),
+    $(goInstance.TextBlock,
+      { textAlign: "center", margin: 5, font: "12px sans-serif", stroke: "black" }, // margin: 5 applies to all sides
+      new goInstance.Binding("text", "name"))
+  );
+};
+
+/**
  * @component GoJSGenogramDiagram
  * @description Componente funcional de React que renderiza un diagrama de GoJS para representar un genograma.
  * Utiliza `GenogramLayout` para organizar automáticamente los nodos según las relaciones familiares.
@@ -97,43 +124,16 @@ const GoJSGenogramDiagram: React.FC<GoJSGenogramDiagramProps> = ({ nodeDataArray
       })
     });
 
-    /**
-     * @function setupNodeTemplate
-     * @description Define la apariencia visual de un nodo (persona) en el genograma.
-     * @param {Gender | undefined} gender - El género de la persona, para variaciones visuales.
-     * @param {string} color - El color de relleno principal de la forma del nodo.
-     * @param {string} figure - El nombre de la figura de GoJS a usar (ej. "Square", "Circle").
-     * @returns {go.Node} Una plantilla de nodo de GoJS.
-     */
-    const setupNodeTemplate = (gender: Gender | undefined, color: string, figure: string) => {
-      return $(go.Node, "Vertical", // Organiza los elementos del nodo verticalmente
-        { locationSpot: go.Spot.Center, selectionObjectName: "SHAPE" }, // Centra el nodo y define el objeto de selección
-        $(go.Panel, // Panel que contiene la forma principal
-          { name: "SHAPE" }, // Nombrar el panel permite referenciarlo, ej. para bindings
-          $(go.Shape, figure, // La figura geométrica (cuadrado, círculo)
-            { width: 50, height: 50, fill: color, strokeWidth: 2, stroke: "black" },
-            // Cambia el color al seleccionar el nodo, oscureciendo el color base.
-            new go.Binding("fill", "isSelected", (isSelected: boolean) => isSelected ? go.Brush.darken(color) : color).ofObject("SHAPE")
-          )
-        ),
-        $(go.TextBlock, // Texto para mostrar el nombre de la persona
-          { textAlign: "center", margin: 5, font: "12px sans-serif", stroke: "black" },
-          new go.Binding("text", "name")) // Vincula la propiedad 'text' del TextBlock a la propiedad 'name' de los datos del nodo.
-      );
-    };
-    
     // Mapa de plantillas de nodo (nodeTemplateMap):
     // Permite usar diferentes plantillas para diferentes nodos basados en una propiedad de sus datos.
     // Aquí, se usa la propiedad 'gender' (que es una categoría implícita que GoJS puede usar si se configura nodeCategoryProperty en el modelo)
     // o, más comúnmente con nodeTemplateMap, se asigna explícitamente la plantilla al añadir el nodo si su 'category' o 'gender' coincide.
     // Para GenogramLayout, el género es un concepto primario y estas plantillas se aplican según los datos.
     const nodeTemplateMap = new go.Map<string, go.Part>();
-    // Se añade una plantilla para cada valor del enum Gender.
-    nodeTemplateMap.add(Gender.Male, setupNodeTemplate(Gender.Male, "lightblue", "Square")); // Hombres: cuadrado azul claro
-    nodeTemplateMap.add(Gender.Female, setupNodeTemplate(Gender.Female, "lightpink", "Circle")); // Mujeres: círculo rosa claro
-    nodeTemplateMap.add(Gender.Unknown, setupNodeTemplate(Gender.Unknown, "lightgray", "Rectangle")); // Género desconocido: rectángulo gris
-    // Plantilla por defecto si el género no está especificado o no coincide con las keys anteriores.
-    nodeTemplateMap.add("", setupNodeTemplate(undefined, "lightgray", "Rectangle")); 
+    nodeTemplateMap.add(Gender.Male, createGenogramNodeTemplate(go, "lightblue", "Square"));
+    nodeTemplateMap.add(Gender.Female, createGenogramNodeTemplate(go, "lightpink", "Circle"));
+    nodeTemplateMap.add(Gender.Unknown, createGenogramNodeTemplate(go, "lightgray", "Rectangle"));
+    nodeTemplateMap.add("", createGenogramNodeTemplate(go, "lightgray", "Rectangle")); // Default template
     diagramInstance.current.nodeTemplateMap = nodeTemplateMap;
     
     // Plantilla de enlace por defecto:
@@ -146,7 +146,7 @@ const GoJSGenogramDiagram: React.FC<GoJSGenogramDiagramProps> = ({ nodeDataArray
     // Plantilla específica para enlaces de categoría "Marriage":
     // Si en `linkDataArray` un enlace tiene `category: "Marriage"`, se usará esta plantilla.
     // GenogramLayout también crea enlaces de matrimonio, pero esto permite personalizarlos si se definen explícitamente.
-     diagramInstance.current.linkTemplateMap.add("Marriage",
+    diagramInstance.current.linkTemplateMap.add("Marriage",
         $(go.Link,
           { selectable: false, layerName: "Background" }, // No seleccionable, dibujado detrás de los nodos.
           $(go.Shape, { strokeWidth: 2.5, stroke: "darkgreen" }) // Línea más gruesa y verde.
