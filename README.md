@@ -1,3 +1,82 @@
+# LEEME
+
+Una herramienta digital integral asistida por IA para apoyar a los trabajadores sociales en sus tareas diarias, proporcionando información rápida, sugerencias de recursos y asistencia con notas de casos. Impulsado por Gemini API.
+
+## Tabla de Contenidos
+
+*   [Características Clave](#características-clave)
+*   [Tecnologías Utilizadas](#tecnologías-utilizadas)
+*   [Descripción General de la Estructura del Proyecto](#descripción-general-de-la-estructura-del-proyecto)
+*   [Cómo Empezar](#cómo-empezar)
+*   [Scripts Disponibles](#scripts-disponibles)
+*   [Panel de Administración](#panel-de-administración)
+*   [Licencia](#licencia)
+
+## Características Clave
+
+*   **Panel de Control:** Vista general de tareas, citas y notificaciones importantes.
+*   **Gestión de Casos:** Ver lista de casos, ver detalles de casos y gestionar la información de los casos.
+*   **Gestión de Tareas:** Crear, asignar y seguir tareas.
+*   **Programación:** Gestionar citas y horarios.
+*   **Asistente IA/Chat:** Impulsado por Gemini API para información rápida y sugerencias.
+*   **Notas de Clientes:** Gestionar y acceder de forma segura a las notas de los clientes.
+*   **Gestión de Recursos:** Acceder y gestionar un directorio de recursos.
+*   **Gestión de Perfiles de Usuario:** Gestionar perfiles y configuraciones de usuario.
+*   **Panel de Administración:**
+    *   Panel de control para una visión general administrativa.
+    *   Gestión de Usuarios para agregar, editar y eliminar usuarios.
+    *   Configuración de la Aplicación para configurar la aplicación.
+
+## Tecnologías Utilizadas
+
+*   React
+*   TypeScript
+*   Vite
+*   React Router
+*   Google Gemini API
+
+## Descripción General de la Estructura del Proyecto
+
+*   `src/components`: Componentes de interfaz de usuario reutilizables.
+*   `src/views`: Vistas/páginas de la aplicación.
+*   `src/services`: Servicios como integraciones API (por ejemplo, Gemini).
+*   `src/contexts`: Contexto de React para la gestión del estado.
+*   `public/data`: Datos JSON de muestra para desarrollo.
+*   `src/App.tsx`: Componente principal de la aplicación con enrutamiento.
+*   `src/index.tsx`: Punto de entrada de la aplicación.
+
+## Cómo Empezar
+
+1.  **Clona el repositorio:**
+    ```bash
+    git clone https://github.com/your-username/digital-brain-social-workers.git
+    ```
+    *Reemplaza `https://github.com/your-username/digital-brain-social-workers.git` con la URL real del repositorio.*
+2.  **Instala las dependencias:**
+    ```bash
+    npm install
+    ```
+3.  **Ejecuta el servidor de desarrollo:**
+    ```bash
+    npm run dev
+    ```
+
+## Scripts Disponibles
+
+*   `npm run dev`: Inicia el servidor de desarrollo (generalmente en `http://localhost:5173`).
+*   `npm run build`: Empaqueta la aplicación para producción.
+*   `npm run preview`: Sirve la compilación de producción localmente para vista previa.
+
+## Panel de Administración
+
+*   Accesible a través de la ruta `/admin`.
+*   Proporciona funcionalidades administrativas como la gestión de usuarios y la configuración de la aplicación.
+
+## Licencia
+
+Este proyecto es privado.
+
+---
 # Digital Brain for Social Workers
 
 An AI-assisted comprehensive digital tool to support social workers in their daily tasks, providing quick information, resource suggestions, and case note assistance. Powered by Gemini API.
@@ -51,6 +130,7 @@ An AI-assisted comprehensive digital tool to support social workers in their dai
     ```bash
     git clone https://github.com/your-username/digital-brain-social-workers.git
     ```
+    *Replace `https://github.com/your-username/digital-brain-social-workers.git` with the actual repository URL.*
 2.  **Install dependencies:**
     ```bash
     npm install
