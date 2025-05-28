@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } = require('@google/generative-ai');
 
+
 const db = require('./models'); // Imports from models/index.js
 
 dotenv.config();
@@ -18,12 +19,14 @@ const resourceRoutes = require('./routes/resourceRoutes');
 const scheduleEventRoutes = require('./routes/scheduleEventRoutes');
 const taskRoutes = require('./routes/taskRoutes');
 
+
 const app = express();
 const port = process.env.PORT || 3001;
 
 // Middleware
 app.use(cors({ origin: process.env.CLIENT_ORIGIN_URL }));
 app.use(express.json());
+
 
 // Mount case routes
 app.use('/api/cases', caseRoutes);
@@ -32,6 +35,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/resources', resourceRoutes);
 app.use('/api/schedule-events', scheduleEventRoutes);
 app.use('/api/tasks', taskRoutes);
+
 
 const MODEL_NAME = "gemini-pro"; // Or allow client to specify if needed
 
@@ -135,6 +139,7 @@ app.post('/api/v1/chat/send', async (req, res) => {
         res.status(statusCode).json({ error: errorMessage, details: error.message });
     }
 });
+
 
 app.listen(port, async () => { // Made this async to await sequelize.authenticate()
     console.log(`Proxy server listening on port ${port}`);

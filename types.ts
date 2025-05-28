@@ -54,11 +54,18 @@ export interface Case {
 }
 
 // New interfaces for Family/Household Composition
+export enum Gender {
+  Male = "Male",
+  Female = "Female",
+  Other = "Other",
+  Unknown = "Unknown"
+}
+
 export interface Person {
   id: string; // Unique ID for this person within the system or case context
   fullName: string;
   dateOfBirth?: string; // ISO string YYYY-MM-DD
-  gender?: string; // e.g., "Masculino", "Femenino", "Otro", "Prefiero no decirlo"
+  gender?: Gender; // Updated to use the Gender enum
 }
 
 export interface FamilyMember extends Person {
@@ -91,6 +98,7 @@ export interface CaseDetail {
   dateOpened?: string; // When the case was opened
   compositionHistory: CompositionUnitRecord[]; // History of family/household compositions
   // statusHistory?: { status: CaseStatus, date: string, notes?: string }[]; // Future enhancement for detailed status timeline
+  // Ensure CaseDetail and other relevant interfaces using gender also refer to the Gender enum if needed.
 }
 
 export enum TaskStatus {

@@ -31,14 +31,20 @@ import {
 
 // Extracted Components
 import CaseNoteModal from '../cases/CaseNoteModal';
-import SimplifiedGenogram from '../cases/SimplifiedGenogram';
-import CaseTimelineGraph from '../cases/CaseTimelineGraph';
+// import SimplifiedGenogram from '../cases/SimplifiedGenogram'; // To be removed
+import GoJSGenogramDiagram from '../cases/GoJSGenogramDiagram'; // New Genogram
+// import CaseTimelineGraph from '../cases/CaseTimelineGraph'; // To be removed
+import GoJSTimelineDiagram from '../cases/GoJSTimelineDiagram'; // New Timeline
+
+// Utils
+import { transformCaseDataToGenogram } from '../../utils/genogramUtils'; 
+import { transformCaseDataToTimeline } from '../../utils/timelineUtils'; // New Timeline util
 
 // Extracted Utils
 import { 
     getStatusBadgeClasses, 
-    getTimelineEventColor,
-    generateTimelineEvents 
+    // getTimelineEventColor, // No longer needed for GoJS timeline
+    // generateTimelineEvents // No longer needed, replaced by transformCaseDataToTimeline
 } from '../../utils/caseDetailUtils'; 
 
 // Calendar components for embedded view
@@ -57,7 +63,7 @@ const CaseDetailView: React.FC = () => {
   const [caseTasks, setCaseTasks] = useState<TaskDetail[]>([]);
   const [caseNotes, setCaseNotes] = useState<ClientNote[]>([]);
   const [caseEvents, setCaseEvents] = useState<ScheduleEvent[]>([]);
-  const [allTimelineEvents, setAllTimelineEvents] = useState<TimelineEvent[]>([]);
+  // const [allTimelineEvents, setAllTimelineEvents] = useState<TimelineEvent[]>([]); // Replaced by goJsTimelineEvents
   
   const [activeTab, setActiveTab] = useState<TabOptions>('overview');
   const [isLoading, setIsLoading] = useState(true);
@@ -77,16 +83,16 @@ const CaseDetailView: React.FC = () => {
   const [isNoteModalOpen, setIsNoteModalOpen] = useState(false);
   const [selectedNoteForModal, setSelectedNoteForModal] = useState<ClientNote | null>(null);
 
-  const [selectedTimelineFilters, setSelectedTimelineFilters] = useState<BroadTimelineFilterCategory[]>([]); 
-  const [expandedTimelineEventId, setExpandedTimelineEventId] = useState<string | null>(null); 
-  const [timelinePerspectiveFilter, setTimelinePerspectiveFilter] = useState<TimelinePerspectiveFilter>('generalWithPersons');
+  // const [selectedTimelineFilters, setSelectedTimelineFilters] = useState<BroadTimelineFilterCategory[]>([]); // Old timeline filters
+  // const [expandedTimelineEventId, setExpandedTimelineEventId] = useState<string | null>(null);  // Old timeline state
+  // const [timelinePerspectiveFilter, setTimelinePerspectiveFilter] = useState<TimelinePerspectiveFilter>('generalWithPersons'); // Old timeline state
   
-  const broadFilterButtonCategories: { category: BroadTimelineFilterCategory; label: string; icon: React.FC<React.SVGProps<SVGSVGElement>>; }[] = [
-    { category: "Eventos Personales", label: "Eventos Personales", icon: StarIcon },
-    { category: "Eventos de Unidad Familiar", label: "Unidad Familiar", icon: UsersIcon },
-    { category: "Actuaciones sobre el Caso", label: "Actuaciones", icon: BriefcaseIcon },
-    { category: "Documentación Generada", label: "Documentación", icon: DocumentTextIconSvg },
-  ];
+  // const broadFilterButtonCategories: { category: BroadTimelineFilterCategory; label: string; icon: React.FC<React.SVGProps<SVGSVGElement>>; }[] = [ // Old timeline filters
+  //   { category: "Eventos Personales", label: "Eventos Personales", icon: StarIcon },
+  //   { category: "Eventos de Unidad Familiar", label: "Unidad Familiar", icon: UsersIcon },
+  //   { category: "Actuaciones sobre el Caso", label: "Actuaciones", icon: BriefcaseIcon },
+  //   { category: "Documentación Generada", label: "Documentación", icon: DocumentTextIconSvg },
+  // ];
 
   const loadData = useCallback(() => {
     setIsLoading(true);
@@ -114,9 +120,10 @@ const CaseDetailView: React.FC = () => {
         const currentCaseEvents = allEventsData.filter(event => event.caseId === caseId).sort((a,b) => new Date(a.start).getTime() - new Date(b.start).getTime());
         setCaseEvents(currentCaseEvents);
 
-        setAllTimelineEvents(generateTimelineEvents(foundCase, currentCaseTasks, currentCaseNotes, currentCaseEvents));
+        // setAllTimelineEvents(generateTimelineEvents(foundCase, currentCaseTasks, currentCaseNotes, currentCaseEvents)); // Old timeline data generation
     } else {
-        setCaseDetail(null); setAllTimelineEvents([]);
+        setCaseDetail(null); 
+        // setAllTimelineEvents([]); // No longer needed
     }
     setIsLoading(false);
   }, [caseId, navigate]);
@@ -209,32 +216,32 @@ const CaseDetailView: React.FC = () => {
     }
   };
   
-  const toggleTimelineFilter = (filterType: BroadTimelineFilterCategory) => {
-    setSelectedTimelineFilters(prevFilters =>
-      prevFilters.includes(filterType)
-        ? prevFilters.filter(f => f !== filterType)
-        : [...prevFilters, filterType]
-    );
-  };
+  // const toggleTimelineFilter = (filterType: BroadTimelineFilterCategory) => { // Old filter logic
+  //   setSelectedTimelineFilters(prevFilters =>
+  //     prevFilters.includes(filterType)
+  //       ? prevFilters.filter(f => f !== filterType)
+  //       : [...prevFilters, filterType]
+  //   );
+  // };
 
-  const handleTimelineEventClick = (event: TimelineEvent) => {
-    setExpandedTimelineEventId(prev => prev === event.id ? null : event.id); 
-    if (!event.sourceId || !event.sourceType) return;
-    switch (event.sourceType) {
-      case 'note':
-        const note = caseNotes.find(n => n.id === event.sourceId);
-        if (note) { setSelectedNoteForModal(note); setIsNoteModalOpen(true); }
-        break;
-      case 'task':
-        const task = caseTasks.find(t => t.id === event.sourceId);
-        if (task) { setSelectedTaskForModal(task); setIsEditingTask(true); setIsTaskModalOpen(true); }
-        break;
-      case 'scheduleEvent':
-        const scheduleItem = caseEvents.find(se => se.id === event.sourceId);
-        if (scheduleItem) { setSelectedEventForModal(scheduleItem); setIsEventModalOpen(true); }
-        break;
-    }
-  };
+  // const handleTimelineEventClick = (event: TimelineEvent) => { // Old click logic
+  //   setExpandedTimelineEventId(prev => prev === event.id ? null : event.id); 
+  //   if (!event.sourceId || !event.sourceType) return;
+  //   switch (event.sourceType) {
+  //     case 'note':
+  //       const note = caseNotes.find(n => n.id === event.sourceId);
+  //       if (note) { setSelectedNoteForModal(note); setIsNoteModalOpen(true); }
+  //       break;
+  //     case 'task':
+  //       const task = caseTasks.find(t => t.id === event.sourceId);
+  //       if (task) { setSelectedTaskForModal(task); setIsEditingTask(true); setIsTaskModalOpen(true); }
+  //       break;
+  //     case 'scheduleEvent':
+  //       const scheduleItem = caseEvents.find(se => se.id === event.sourceId);
+  //       if (scheduleItem) { setSelectedEventForModal(scheduleItem); setIsEventModalOpen(true); }
+  //       break;
+  //   }
+  // };
 
   const currentCompositionRecord = useMemo(() => {
     if (!caseDetail || !caseDetail.compositionHistory || caseDetail.compositionHistory.length === 0) {
@@ -243,151 +250,31 @@ const CaseDetailView: React.FC = () => {
     return caseDetail.compositionHistory.sort((a,b) => new Date(b.effectiveDate).getTime() - new Date(a.effectiveDate).getTime())[0];
   }, [caseDetail]);
 
-  const perspectiveFilterOptions = useMemo(() => {
-    const options = [
-      { value: 'generalWithPersons', label: 'General con Personas Vinculadas (Gráfico Vertical)' },
-      { value: 'general', label: 'Historial General del Caso (Lista)' },
-      { value: 'familyUnit', label: 'Perspectiva Gráfica: Unidad Familiar' },
-      { value: 'householdUnit', label: 'Perspectiva Gráfica: Unidad de Convivencia' },
-    ];
-    if (currentCompositionRecord) {
-      const individuals: { id: string; fullName: string }[] = [];
-       (currentCompositionRecord.familyUnit || []).forEach(p => { if (!individuals.find(i => i.id === p.id)) individuals.push({ id: p.id, fullName: p.fullName }); });
-       (currentCompositionRecord.householdUnit || []).forEach(p => { if (!individuals.find(i => i.id === p.id)) individuals.push({ id: p.id, fullName: p.fullName }); });
-      individuals.forEach(p => { options.push({ value: p.id, label: `Perspectiva Gráfica: ${p.fullName}` }); });
-    }
-    return options;
-  }, [currentCompositionRecord]);
+  // const perspectiveFilterOptions = useMemo(() => { // Old timeline graph options
+  //   const options = [
+  //     { value: 'generalWithPersons', label: 'General con Personas Vinculadas (Gráfico Vertical)' },
+  //     { value: 'general', label: 'Historial General del Caso (Lista)' },
+  //     { value: 'familyUnit', label: 'Perspectiva Gráfica: Unidad Familiar' },
+  //     { value: 'householdUnit', label: 'Perspectiva Gráfica: Unidad de Convivencia' },
+  //   ];
+  //   if (currentCompositionRecord) {
+  //     const individuals: { id: string; fullName: string }[] = [];
+  //      (currentCompositionRecord.familyUnit || []).forEach(p => { if (!individuals.find(i => i.id === p.id)) individuals.push({ id: p.id, fullName: p.fullName }); });
+  //      (currentCompositionRecord.householdUnit || []).forEach(p => { if (!individuals.find(i => i.id === p.id)) individuals.push({ id: p.id, fullName: p.fullName }); });
+  //     individuals.forEach(p => { options.push({ value: p.id, label: `Perspectiva Gráfica: ${p.fullName}` }); });
+  //   }
+  //   return options;
+  // }, [currentCompositionRecord]);
 
-  const eventsForDisplay = useMemo(() => {
-    let filtered = allTimelineEvents;
-    if (selectedTimelineFilters.length > 0) {
-      filtered = filtered.filter(event => event.broadCategory && selectedTimelineFilters.includes(event.broadCategory));
-    }
-    return filtered;
-  }, [allTimelineEvents, selectedTimelineFilters]);
+  // const eventsForDisplay = useMemo(() => { // Old timeline data
+  //   let filtered = allTimelineEvents;
+  //   if (selectedTimelineFilters.length > 0) {
+  //     filtered = filtered.filter(event => event.broadCategory && selectedTimelineFilters.includes(event.broadCategory));
+  //   }
+  //   return filtered;
+  // }, [allTimelineEvents, selectedTimelineFilters]);
 
-  // Graph constants
-  const TRACK_WIDTH = 80; 
-  const SVG_PADDING_TOP_FOR_LABELS = 60;
-  const SVG_PADDING_BOTTOM = 50; 
-  const SVG_PADDING_LEFT_FOR_AXIS = 80; 
-  const NODE_RADIUS = 5;
-  const MIN_SVG_HEIGHT = 400; 
-  const MIN_GRAPH_CONTENT_HEIGHT = 300;
-
-  const graphData = useMemo(() => {
-    if (!caseDetail || eventsForDisplay.length === 0) return { svgTracks: [], svgNodes: [], svgLinks: [], svgWidth: 500, svgHeight: MIN_SVG_HEIGHT, minDateEpoch:0, maxDateEpoch:0 };
-
-    const trackIdToPersonNameMap = new Map<string, string>();
-    const personIdToTrackIndexMap = new Map<string, number>();
-    const tracksFromPerspective: { id: string; name: string; color: string; persons: string[] }[] = [];
-    const trackColors = ['#8884d8', '#82ca9d', '#ffc658', '#ff7300', '#00C49F', '#FFBB28', '#FF8042', '#E91E63', '#673AB7', '#4CAF50', '#2196F3', '#FFEB3B'];
-    let colorIndex = 0;
-    
-    const getNextColor = () => trackColors[colorIndex++ % trackColors.length];
-
-    tracksFromPerspective.push({ id: 'case', name: 'Caso General', color: 'var(--color-text-secondary)', persons: [caseDetail.id]});
-    trackIdToPersonNameMap.set('case', 'Caso General');
-    personIdToTrackIndexMap.set('case', 0);
-
-    let relevantPeopleIds = new Set<string>();
-    if (timelinePerspectiveFilter === 'general' || timelinePerspectiveFilter === 'generalWithPersons') {
-        (currentCompositionRecord?.familyUnit || []).forEach(p => relevantPeopleIds.add(p.id));
-        (currentCompositionRecord?.householdUnit || []).forEach(p => relevantPeopleIds.add(p.id));
-    } else if (timelinePerspectiveFilter === 'familyUnit') {
-        (currentCompositionRecord?.familyUnit || []).forEach(p => relevantPeopleIds.add(p.id));
-    } else if (timelinePerspectiveFilter === 'householdUnit') {
-        (currentCompositionRecord?.householdUnit || []).forEach(p => relevantPeopleIds.add(p.id));
-    } else { 
-        relevantPeopleIds.add(timelinePerspectiveFilter);
-    }
-    
-    const allPersonsCombined: PersonType[] = [];
-    if(currentCompositionRecord) {
-        currentCompositionRecord.familyUnit.forEach(p => {if(!allPersonsCombined.find(ap => ap.id === p.id)) allPersonsCombined.push(p)});
-        currentCompositionRecord.householdUnit.forEach(p => {if(!allPersonsCombined.find(ap => ap.id === p.id)) allPersonsCombined.push(p)});
-    }
-     if (caseDetail && !allPersonsCombined.find(p => p.fullName === caseDetail.clientName)) {
-        allPersonsCombined.push({ id: `caseholder-${caseDetail.id}`, fullName: caseDetail.clientName });
-    }
-
-    relevantPeopleIds.forEach(personId => {
-        const personDetail = allPersonsCombined.find(p => p.id === personId);
-        if (personDetail && personId !== 'case' && !tracksFromPerspective.find(t => t.id === personId)) {
-            const trackName = personDetail.fullName || `Persona ${personId}`;
-            tracksFromPerspective.push({ id: personId, name: trackName, color: getNextColor(), persons: [personId] });
-            trackIdToPersonNameMap.set(personId, trackName);
-            personIdToTrackIndexMap.set(personId, tracksFromPerspective.length - 1);
-        }
-    });
-    
-    const finalSvgTracks = tracksFromPerspective.map((track, index) => ({
-        ...track,
-        xPos: SVG_PADDING_LEFT_FOR_AXIS + (TRACK_WIDTH / 2) + (index * TRACK_WIDTH)
-    }));
-
-    const currentSvgWidth = SVG_PADDING_LEFT_FOR_AXIS + (finalSvgTracks.length * TRACK_WIDTH) + (TRACK_WIDTH / 2);
-    
-    let currentMinDate = eventsForDisplay.length > 0 ? new Date(eventsForDisplay[0].date).getTime() : Date.now();
-    let currentMaxDate = eventsForDisplay.length > 0 ? new Date(eventsForDisplay[0].date).getTime() : Date.now();
-    eventsForDisplay.forEach(event => {
-        const eventDate = new Date(event.date).getTime();
-        if (eventDate < currentMinDate) currentMinDate = eventDate;
-        if (eventDate > currentMaxDate) currentMaxDate = eventDate;
-    });
-     if (eventsForDisplay.length <= 1) { 
-        currentMinDate = currentMinDate - (24 * 60 * 60 * 1000); 
-        currentMaxDate = currentMaxDate + (24 * 60 * 60 * 1000); 
-    }
-    
-    const dateRange = currentMaxDate - currentMinDate;
-    const graphContentHeight = Math.max(MIN_GRAPH_CONTENT_HEIGHT, eventsForDisplay.length * 30); 
-    const finalSvgHeight = graphContentHeight + SVG_PADDING_TOP_FOR_LABELS + SVG_PADDING_BOTTOM;
-
-    const yScale = (date: number) => {
-        if (dateRange === 0) return SVG_PADDING_TOP_FOR_LABELS + graphContentHeight / 2;
-        return SVG_PADDING_TOP_FOR_LABELS + ((date - currentMinDate) / dateRange) * graphContentHeight;
-    };
-
-    const nodes: { id: string; cx: number; cy: number; color: string; event: TimelineEvent; trackId: string }[] = [];
-    const sortedEvents = [...eventsForDisplay].sort((a,b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-
-    sortedEvents.forEach(event => {
-        let primaryTrackId = 'case'; 
-        if (event.relatedPersons && event.relatedPersons.length > 0) {
-            const firstRelatedPersonId = event.relatedPersons[0].id;
-            if (personIdToTrackIndexMap.has(firstRelatedPersonId) && finalSvgTracks.find(t => t.id === firstRelatedPersonId)) {
-                primaryTrackId = firstRelatedPersonId;
-            } 
-        }
-        const targetTrack = finalSvgTracks.find(t => t.id === primaryTrackId) || finalSvgTracks[0]; 
-        
-        nodes.push({
-            id: event.id,
-            cx: targetTrack.xPos,
-            cy: yScale(new Date(event.date).getTime()),
-            color: getTimelineEventColor(event), 
-            event: event,
-            trackId: targetTrack.id
-        });
-    });
-    
-    const links: { id: string; x1: number; y1: number; x2: number; y2: number; stroke: string; }[] = [];
-    for (let i = 0; i < nodes.length -1; i++) {
-        const prevNode = nodes[i];
-        const currNode = nodes[i+1];
-         links.push({
-            id: `link-${prevNode.id}-to-${currNode.id}`,
-            x1: prevNode.cx, y1: prevNode.cy,
-            x2: currNode.cx, y2: currNode.cy,
-            stroke: finalSvgTracks.find(t => t.id === prevNode.trackId)?.color || '#ccc'
-        });
-    }
-
-    return { svgTracks: finalSvgTracks, svgNodes: nodes, svgLinks: links, svgWidth: currentSvgWidth, svgHeight: finalSvgHeight, minDateEpoch: currentMinDate, maxDateEpoch: currentMaxDate };
-
-  }, [caseDetail, eventsForDisplay, currentCompositionRecord, timelinePerspectiveFilter]);
+  // Graph constants and graphData memo are removed as they belong to the old CaseTimelineGraph
 
   const handlePrevMonthForCaseCalendar = () => setCurrentCaseCalendarDate(prev => new Date(prev.getFullYear(), prev.getMonth() - 1, 1));
   const handleNextMonthForCaseCalendar = () => setCurrentCaseCalendarDate(prev => new Date(prev.getFullYear(), prev.getMonth() + 1, 1));
@@ -399,6 +286,21 @@ const CaseDetailView: React.FC = () => {
   const handleCaseCalendarEventClick = (event: ScheduleEvent) => {
     setSelectedEventForModal(event); setSelectedDateForNewEventModal(null); setIsEventModalOpen(true);
   };
+
+  // Transform data for GoJS Genogram
+  const { nodes: genogramNodes, links: genogramLinks } = useMemo(() => {
+    if (caseDetail) { 
+      return transformCaseDataToGenogram(caseDetail);
+    }
+    return { nodes: [], links: [] };
+  }, [caseDetail]);
+  
+  // Transform data for GoJS Timeline
+  const goJsTimelineEvents = useMemo(() => {
+    // caseDetail, caseTasks, caseEvents, caseNotes are already in the component's state
+    // and are filtered for the current caseId by the loadData function.
+    return transformCaseDataToTimeline(caseDetail, caseTasks, caseEvents, caseNotes);
+  }, [caseDetail, caseTasks, caseEvents, caseNotes]);
 
   if (isLoading) return <div className="flex justify-center items-center h-screen"><LoadingSpinner size="lg" /></div>;
   if (!caseDetail) return <div className="text-center text-theme-text-secondary p-8">Caso no encontrado o ID de caso inválido. <Link to="/cases" className="text-theme-accent-primary hover:underline">Volver a Casos</Link></div>;
@@ -523,69 +425,15 @@ const CaseDetailView: React.FC = () => {
         {activeTab === 'timeline' && (
             <div className="space-y-4">
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3 gap-3">
-                    <h3 className="text-lg sm:text-xl font-semibold text-theme-text-primary">Gráfico del Historial del Caso</h3>
-                    <div className="w-full sm:w-auto sm:min-w-[250px]">
-                        <label htmlFor="timelinePerspective" className="sr-only">Perspectiva del Historial</label>
-                        <select
-                            id="timelinePerspective"
-                            value={timelinePerspectiveFilter}
-                            onChange={(e) => {
-                                setTimelinePerspectiveFilter(e.target.value as TimelinePerspectiveFilter);
-                                setExpandedTimelineEventId(null); 
-                            }}
-                            className="w-full p-2 text-sm border border-theme-border-primary rounded-md bg-theme-bg-secondary text-theme-text-primary focus:ring-theme-accent-primary focus:border-theme-accent-primary"
-                        >
-                            {perspectiveFilterOptions.map(opt => (
-                                <option key={opt.value} value={opt.value}>{opt.label}</option>
-                            ))}
-                        </select>
-                    </div>
+                    <h3 className="text-lg sm:text-xl font-semibold text-theme-text-primary">Línea de Tiempo del Caso</h3>
+                     {/* Old filter UI is removed. New filtering mechanism can be added later if needed for GoJSTimelineDiagram */}
                 </div>
                 
-                {broadFilterButtonCategories.length > 0 && (
-                    <div className="mb-4 p-3 bg-theme-bg-secondary rounded-md">
-                        <p className="text-xs font-medium text-theme-text-secondary mb-2">Filtrar por categoría de evento:</p>
-                        <div className="flex flex-wrap gap-2">
-                            {broadFilterButtonCategories.map(bf => (
-                                <button
-                                    key={bf.category}
-                                    onClick={() => toggleTimelineFilter(bf.category)}
-                                    className={`px-2.5 py-1 text-xs rounded-full flex items-center transition-all
-                                        ${selectedTimelineFilters.includes(bf.category) 
-                                            ? 'bg-theme-accent-primary text-theme-text-inverted ring-2 ring-theme-accent-primary-dark' 
-                                            : 'bg-theme-bg-tertiary text-theme-text-secondary hover:bg-gray-300'}`}
-                                >
-                                   <bf.icon className={`w-3.5 h-3.5 mr-1.5 ${selectedTimelineFilters.includes(bf.category) ? 'text-theme-text-inverted' : 'text-theme-text-secondary'}`} />
-                                    {bf.label}
-                                </button>
-                            ))}
-                            {selectedTimelineFilters.length > 0 && (
-                                <button
-                                    onClick={() => setSelectedTimelineFilters([])}
-                                    className="px-2.5 py-1 text-xs text-red-600 hover:text-red-800"
-                                >
-                                    Limpiar filtros
-                                </button>
-                            )}
-                        </div>
-                    </div>
-                )}
-                <CaseTimelineGraph 
-                    svgTracks={graphData.svgTracks}
-                    svgNodes={graphData.svgNodes}
-                    svgLinks={graphData.svgLinks}
-                    svgWidth={graphData.svgWidth}
-                    svgHeight={graphData.svgHeight}
-                    minDateEpoch={graphData.minDateEpoch}
-                    maxDateEpoch={graphData.maxDateEpoch}
-                    SVG_PADDING_TOP_FOR_LABELS={SVG_PADDING_TOP_FOR_LABELS}
-                    SVG_PADDING_LEFT_FOR_AXIS={SVG_PADDING_LEFT_FOR_AXIS}
-                    MIN_GRAPH_CONTENT_HEIGHT={MIN_GRAPH_CONTENT_HEIGHT}
-                    NODE_RADIUS={NODE_RADIUS}
-                    handleTimelineEventClick={handleTimelineEventClick}
-                    getTimelineEventColor={getTimelineEventColor}
-                    expandedTimelineEventId={expandedTimelineEventId}
-                />
+                <GoJSTimelineDiagram eventDataArray={goJsTimelineEvents} />
+                
+                 {/* Interaction handlers like handleTimelineEventClick and states like expandedTimelineEventId
+                     are removed as GoJSTimelineDiagram currently does not support item interaction.
+                     This can be added in a future iteration. */}
             </div>
         )}
 
@@ -635,8 +483,14 @@ const CaseDetailView: React.FC = () => {
                   </div>
                 </div>
                 <div className="mt-6 pt-4 border-t border-theme-border-secondary">
-                    <h4 className="text-md sm:text-lg font-semibold text-theme-text-primary mb-3">Genograma Familiar (Simplificado)</h4>
-                    {caseDetail && currentComposition && <SimplifiedGenogram familyUnit={currentComposition.familyUnit} caseHolderName={caseDetail.clientName} />}
+                    <h4 className="text-md sm:text-lg font-semibold text-theme-text-primary mb-3">Genograma Familiar</h4>
+                    {/* Replace SimplifiedGenogram with GoJSGenogramDiagram */}
+                    {/* Ensure caseDetail is not null before passing to genogram for safety, though already checked by isLoading/!caseDetail */}
+                    {caseDetail && currentComposition ? (
+                        <GoJSGenogramDiagram nodeDataArray={genogramNodes} linkDataArray={genogramLinks} />
+                    ) : (
+                        <p className="text-sm text-theme-text-secondary">Datos insuficientes para mostrar el genograma.</p>
+                    )}
                 </div>
                  <p className="text-xs text-theme-text-secondary italic mt-4">La gestión del historial de composición y la edición se implementarán en futuras versiones.</p>
               </div>
