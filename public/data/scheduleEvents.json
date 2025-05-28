@@ -1,0 +1,101 @@
+
+[
+  { 
+    "id": "event1", 
+    "title": "Reunión de equipo - Caso Noah Bennett", 
+    "start": "2024-08-05T10:00:00.000Z", 
+    "end": "2024-08-05T11:00:00.000Z", 
+    "type": "Reunión de Equipo", 
+    "alertMinutesBefore": 30,
+    "caseId": "case4"
+  },
+  { 
+    "id": "event2", 
+    "title": "Visita a domicilio Emma Harper", 
+    "start": "2024-08-07T14:00:00.000Z", 
+    "end": "2024-08-07T15:00:00.000Z", 
+    "type": "Visita Domiciliaria", 
+    "location": "Residencia de Emma Harper", 
+    "alertMinutesBefore": 60,
+    "caseId": "case1"
+  },
+  { 
+    "id": "event3", 
+    "title": "Cita Terapéutica Ethan Walker", 
+    "start": "2024-08-12T09:30:00.000Z", 
+    "end": "2024-08-12T10:30:00.000Z", 
+    "type": "Cita", 
+    "description": "Sesión de seguimiento con terapeuta.",
+    "caseId": "case2",
+    "location": "Centro de Salud Mental Comunitario"
+  },
+  {
+    "id": "event4",
+    "title": "Fecha Límite: Informe Caso Harper",
+    "start": "2024-08-08T23:59:00.000Z",
+    "end": "2024-08-08T23:59:00.000Z",
+    "type": "Fecha Límite",
+    "allDay": true,
+    "caseId": "case1"
+  },
+  {
+    "id": "event5",
+    "title": "Día Personal Emily",
+    "start": "2024-08-16T00:00:00.000Z",
+    "end": "2024-08-16T23:59:59.000Z",
+    "type": "Personal",
+    "allDay": true
+  },
+  { 
+    "id": "eventTest-schedule-case1-1", 
+    "title": "Cita con Emma Harper: Plan de Acción Empleo", 
+    "start": "2024-02-18T11:00:00.000Z", 
+    "end": "2024-02-18T12:00:00.000Z", 
+    "type": "Cita", 
+    "description": "Revisar currículum y estrategias de búsqueda de empleo para Emma Harper.",
+    "location": "Oficina de Servicios Sociales",
+    "alertMinutesBefore": 15,
+    "caseId": "case1"
+  },
+  { 
+    "id": "eventTest-schedule-case1-2", 
+    "title": "Taller de habilidades para padres (Lucas Harper asiste)", 
+    "start": "2024-03-12T16:00:00.000Z", 
+    "end": "2024-03-12T17:30:00.000Z", 
+    "type": "Otro", 
+    "description": "Emma Harper asistirá con Lucas al taller sobre comunicación efectiva.",
+    "location": "Centro Comunitario",
+    "caseId": "case1"
+  },
+  { 
+    "id": "eventTest-schedule-case1-3", 
+    "title": "Visita a refugio temporal (Emma Harper)", 
+    "start": "2024-04-08T10:00:00.000Z", 
+    "end": "2024-04-08T11:00:00.000Z", 
+    "type": "Visita Domiciliaria",
+    "description": "Acompañar a Emma Harper a visitar una opción de refugio temporal.",
+    "location": "Refugio 'Nuevo Amanecer'",
+    "caseId": "case1"
+  },
+  { 
+    "id": "eventTest-schedule-case1-4", 
+    "title": "Reunión con colegio de Lucas Harper", 
+    "start": "2024-05-22T09:00:00.000Z", 
+    "end": "2024-05-22T09:45:00.000Z", 
+    "type": "Reunión de Equipo", 
+    "description": "Reunión con la tutora de Lucas Harper y Emma para discutir su adaptación y necesidades.",
+    "location": "Colegio 'El Roble'",
+    "caseId": "case1"
+  },
+  { 
+    "id": "eventTest-schedule-case1-5", 
+    "title": "Entrevista de trabajo de Emma Harper", 
+    "start": "2024-06-05T14:00:00.000Z", 
+    "end": "2024-06-05T15:00:00.000Z", 
+    "type": "Cita", 
+    "description": "Emma Harper tiene una entrevista de trabajo en 'Soluciones Limpias S.L.'.",
+    "location": "Soluciones Limpias S.L.",
+    "alertMinutesBefore": 60,
+    "caseId": "case1"
+  }
+]

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cerebro Digital para Trabajadores Sociales</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            // Theme-agnostic specific colors (can still be used directly)
+            primary: '#3B82F6', // Blue-500
+            secondary: '#10B981', // Emerald-500
+            accent: '#F59E0B', // Amber-500
+            
+            // Semantic Theme Colors (using CSS variables)
+            'theme-bg-primary': 'var(--color-bg-primary)',
+            'theme-bg-secondary': 'var(--color-bg-secondary)',
+            'theme-bg-tertiary': 'var(--color-bg-tertiary)',
+            'theme-bg-card': 'var(--color-bg-card)',
+            'theme-text-primary': 'var(--color-text-primary)',
+            'theme-text-secondary': 'var(--color-text-secondary)',
+            'theme-text-accent': 'var(--color-text-accent)',
+            'theme-text-inverted': 'var(--color-text-inverted)',
+            'theme-border-primary': 'var(--color-border-primary)',
+            'theme-border-secondary': 'var(--color-border-secondary)',
+            'theme-accent-primary': 'var(--color-accent-primary)',
+            'theme-accent-primary-dark': 'var(--color-accent-primary-dark)',
+            'theme-accent-primary-light': 'var(--color-accent-primary-light)',
+            'theme-button-primary-bg': 'var(--color-button-primary-bg)',
+            'theme-button-primary-text': 'var(--color-button-primary-text)',
+            'theme-button-primary-hover-bg': 'var(--color-button-primary-hover-bg)',
+            'theme-button-secondary-bg': 'var(--color-button-secondary-bg)',
+            'theme-button-secondary-text': 'var(--color-button-secondary-text)',
+            'theme-button-secondary-hover-bg': 'var(--color-button-secondary-hover-bg)',
+            'theme-sidebar-bg': 'var(--color-sidebar-bg)',
+            'theme-sidebar-text': 'var(--color-sidebar-text)',
+            'theme-sidebar-icon': 'var(--color-sidebar-icon)',
+            'theme-sidebar-active-bg': 'var(--color-sidebar-active-bg)',
+            'theme-sidebar-active-text': 'var(--color-sidebar-active-text)',
+            'theme-sidebar-active-icon': 'var(--color-sidebar-active-icon)',
+            'theme-sidebar-hover-bg': 'var(--color-sidebar-hover-bg)',
+            'theme-sidebar-hover-text': 'var(--color-sidebar-hover-text)',
+            'theme-sidebar-header-text': 'var(--color-sidebar-header-text)',
+
+            // Status specific colors (can also be themed if needed)
+            'status-open-bg': 'var(--color-status-open-bg)',
+            'status-open-text': 'var(--color-status-open-text)',
+            'status-progress-bg': 'var(--color-status-progress-bg)',
+            'status-progress-text': 'var(--color-status-progress-text)',
+            'status-closed-bg': 'var(--color-status-closed-bg)',
+            'status-closed-text': 'var(--color-status-closed-text)',
+            'status-assigned-bg': 'var(--color-status-assigned-bg)',
+            'status-assigned-text': 'var(--color-status-assigned-text)',
+            'status-completed-bg': 'var(--color-status-completed-bg)',
+            'status-completed-text': 'var(--color-status-completed-text)',
+            'status-pending-bg': 'var(--color-status-pending-bg)',
+            'status-pending-text': 'var(--color-status-pending-text)',
+
+            transparent: 'transparent',
+            current: 'currentColor',
+            white: '#FFFFFF',
+            black: '#000000',
+            gray: {
+              50: '#F9FAFB', 100: '#F3F4F6', 200: '#E5E7EB', 300: '#D1D5DB',
+              400: '#9CA3AF', 500: '#6B7280', 600: '#4B5563', 700: '#374151',
+              800: '#1F2937', 900: '#111827'
+            },
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { /* Theme: Formal (Default) - Palette: #4C585B, #7E99A3, #A5BFCC, #F4EDD3 */
+      --color-bg-primary: #F4EDD3;
+      --color-bg-secondary: #FFFFFF;
+      --color-bg-tertiary: #E1E8F0; /* Bluish gray for tertiary elements */
+      --color-bg-card: #FFFFFF;
+      --color-text-primary: #4C585B;
+      --color-text-secondary: #7E99A3;
+      --color-text-accent: #4A90E2; /* Standard formal blue for accents */
+      --color-text-inverted: #FFFFFF;
+      --color-border-primary: #A5BFCC;
+      --color-border-secondary: #DCE4EC; /* Lighter A5BFCC */
+      --color-accent-primary: #4A90E2;
+      --color-accent-primary-dark: #357ABD;
+      --color-accent-primary-light: #87B6ED;
+      --color-button-primary-bg: #4C585B;
+      --color-button-primary-text: #FFFFFF;
+      --color-button-primary-hover-bg: #616F72; /* Slightly lighter/desaturated #4C585B */
+      --color-button-secondary-bg: #A5BFCC;
+      --color-button-secondary-text: #4C585B;
+      --color-button-secondary-hover-bg: #92ADBA;
+      --color-sidebar-bg: #4C585B; 
+      --color-sidebar-text: #A5BFCC;
+      --color-sidebar-icon: #A5BFCC;
+      --color-sidebar-active-bg: rgba(74, 144, 226, 0.15); /* Accent blue with opacity */
+      --color-sidebar-active-text: #F4EDD3; 
+      --color-sidebar-active-icon: #F4EDD3;
+      --color-sidebar-hover-bg: rgba(74, 144, 226, 0.08);
+      --color-sidebar-hover-text: #F4EDD3;
+      --color-sidebar-header-text: #F4EDD3;
+
+      /* Standard Status Colors for Formal Theme */
+      --color-status-open-bg: #E6FFFA; --color-status-open-text: #319795;
+      --color-status-progress-bg: #FEFCBF; --color-status-progress-text: #B7791F;
+      --color-status-closed-bg: #E2E8F0; --color-status-closed-text: #4A5568;
+      --color-status-assigned-bg: #EBF4FF; --color-status-assigned-text: #4299E1;
+      --color-status-completed-bg: #C3DAFE; --color-status-completed-text: #2563EB;
+      --color-status-pending-bg: #FED7D7; --color-status-pending-text: #C53030;
+    }
+
+    html.theme-vibrant { /* Palette: #FFFBDE, #90D1CA, #129990, #096B68 */
+      --color-bg-primary: #FFFBDE;
+      --color-bg-secondary: #FFFFFF;
+      --color-bg-tertiary: #E0F7FA; /* Light cyan for tertiary elements */
+      --color-bg-card: #FFFFFF;
+      --color-text-primary: #096B68;
+      --color-text-secondary: #129990;
+      --color-text-accent: #129990;
+      --color-text-inverted: #096B68; /* For light buttons if needed */
+      --color-border-primary: #90D1CA;
+      --color-border-secondary: #B2DFDB; /* Lighter #90D1CA */
+      --color-accent-primary: #129990;
+      --color-accent-primary-dark: #096B68;
+      --color-accent-primary-light: #90D1CA;
+      --color-button-primary-bg: #129990;
+      --color-button-primary-text: #FFFFFF;
+      --color-button-primary-hover-bg: #096B68;
+      --color-button-secondary-bg: #90D1CA;
+      --color-button-secondary-text: #096B68;
+      --color-button-secondary-hover-bg: #75C4BD; /* Darker #90D1CA */
+      --color-sidebar-bg: #096B68;
+      --color-sidebar-text: #90D1CA;
+      --color-sidebar-icon: #90D1CA;
+      --color-sidebar-active-bg: #129990;
+      --color-sidebar-active-text: #FFFBDE;
+      --color-sidebar-active-icon: #FFFBDE;
+      --color-sidebar-hover-bg: rgba(144, 209, 202, 0.2); /* #90D1CA with opacity */
+      --color-sidebar-hover-text: #FFFBDE;
+      --color-sidebar-header-text: #FFFBDE;
+
+      /* Status Colors for Vibrant Theme */
+      --color-status-open-bg: #E0F2F1; --color-status-open-text: #00796B; /* Teal 50, Teal 700 */
+      --color-status-progress-bg: #FFF9C4; --color-status-progress-text: #F9A825; /* Yellow 100, Yellow 700 */
+      --color-status-closed-bg: #ECEFF1; --color-status-closed-text: #546E7A; /* Blue Grey 50, Blue Grey 600 */
+      --color-status-assigned-bg: #B3E5FC; --color-status-assigned-text: #0277BD; /* Light Blue 100, Light Blue 700 */
+      --color-status-completed-bg: #C8E6C9; --color-status-completed-text: #2E7D32; /* Green 100, Green 700 */
+      --color-status-pending-bg: #FFCCBC; --color-status-pending-text: #D84315; /* Deep Orange 100, Deep Orange 700 */
+    }
+
+    html.theme-terracotta { /* Palette: #257180, #F2E5BF, #FD8B51, #CB6040 */
+      --color-bg-primary: #F2E5BF;
+      --color-bg-secondary: #FFFFFF;
+      --color-bg-tertiary: #FAF3E0; /* Lighter beige than #F2E5BF */
+      --color-bg-card: #FFFFFF;
+      --color-text-primary: #257180;
+      --color-text-secondary: #8F5B2F; /* Muted brown */
+      --color-text-accent: #FD8B51;
+      --color-text-inverted: #FFFFFF;
+      --color-border-primary: #D8C7A8; /* Darker beige */
+      --color-border-secondary: #EFE5D1; /* Lighter than primary border */
+      --color-accent-primary: #FD8B51;
+      --color-accent-primary-dark: #CB6040;
+      --color-accent-primary-light: #FDDAB8; /* Lightened #FD8B51 */
+      --color-button-primary-bg: #FD8B51;
+      --color-button-primary-text: #FFFFFF;
+      --color-button-primary-hover-bg: #CB6040;
+      --color-button-secondary-bg: #257180;
+      --color-button-secondary-text: #FFFFFF;
+      --color-button-secondary-hover-bg: #1E5A67; /* Darker #257180 */
+      --color-sidebar-bg: #257180;
+      --color-sidebar-text: #F2E5BF;
+      --color-sidebar-icon: #F2E5BF;
+      --color-sidebar-active-bg: #FD8B51;
+      --color-sidebar-active-text: #FFFFFF;
+      --color-sidebar-active-icon: #FFFFFF;
+      --color-sidebar-hover-bg: rgba(253, 139, 81, 0.2); /* Orange with opacity */
+      --color-sidebar-hover-text: #FFFFFF;
+      --color-sidebar-header-text: #F2E5BF;
+
+      /* Status Colors for Terracotta Theme */
+      --color-status-open-bg: #E0F7FA; --color-status-open-text: #00796B; /* Light cyan/teal and dark teal */
+      --color-status-progress-bg: #FFF3E0; --color-status-progress-text: #E65100; /* Light orange/amber and dark orange */
+      --color-status-closed-bg: #EFEBE9; --color-status-closed-text: #5D4037; /* Brown-grey */
+      --color-status-assigned-bg: #FFECB3; --color-status-assigned-text: #FF8F00; /* Light amber and amber */
+      --color-status-completed-bg: #C8E6C9; --color-status-completed-text: #2E7D32; /* Standard green */
+      --color-status-pending-bg: #FDDAB8; --color-status-pending-text: #CB6040; /* Light orange and dark orange/rust */
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      background-color: var(--color-bg-primary); /* Applied globally */
+      color: var(--color-text-primary); /* Applied globally */
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    /* Custom scrollbar for webkit browsers */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--color-border-secondary); 
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--color-text-secondary); 
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--color-text-primary); 
+    }
+    .sidebar-icon {
+      width: 1.25rem; 
+      height: 1.25rem; 
+      /* color is inherited via currentColor from parent NavLink */
+    }
+  </style>
+<script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.1.0/",
+    "react": "https://esm.sh/react@^19.1.0",
+    "react-router-dom": "https://esm.sh/react-router-dom@^7.6.1",
+    "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.1.0",
+    "@/types": "/types.ts"
+  }
+}
+</script>
+</head>
+<body class="text-theme-text-primary bg-theme-bg-primary">
+  <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html><link rel="stylesheet" href="index.css">
+<script src="index.tsx" type="module"></script>

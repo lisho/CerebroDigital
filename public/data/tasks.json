@@ -1,0 +1,144 @@
+
+[
+  { 
+    "id": "task1", 
+    "title": "Preparar informe visita domiciliaria", 
+    "statusLabel": "En Progreso", 
+    "caseId": "case1", 
+    "dueDate": "2024-08-05", 
+    "status": "En Progreso", 
+    "assignedToMe": true, 
+    "itemType": "task", 
+    "description": "Revisar notas y compilar el informe para el caso de Emma Harper.", 
+    "tags": ["informe", "visita", "Emma Harper"] 
+  },
+  { 
+    "id": "task2", 
+    "title": "Llamada de seguimiento a Familia G.", 
+    "statusLabel": "Pendiente", 
+    "caseId": "case2", 
+    "dueDate": "2024-08-02", 
+    "status": "Pendiente", 
+    "assignedToMe": true, 
+    "itemType": "task", 
+    "tags": ["seguimiento", "Ethan Walker"] 
+  },
+  { 
+    "id": "task3", 
+    "title": "Revisar documentación de nuevo caso Noah Bennett", 
+    "statusLabel": "Por Hacer", 
+    "caseId": "case4", 
+    "dueDate": "2024-08-10", 
+    "status": "Por Hacer", 
+    "assignedToMe": true, 
+    "itemType": "task", 
+    "description": "Toda la documentación del nuevo caso de Noah Bennett debe ser revisada y archivada.",
+    "tags": ["documentación", "nuevo caso", "Noah Bennett"]
+  },
+  {
+    "id": "task4",
+    "title": "Coordinar con servicios de vivienda para Emma Harper",
+    "statusLabel": "Asignada",
+    "caseId": "case1",
+    "dueDate": "2024-08-15",
+    "status": "Asignada",
+    "assignedToMe": false,
+    "itemType": "task",
+    "description": "Contactar agencias de vivienda para explorar opciones para Emma Harper.",
+    "tags": ["vivienda", "coordinación", "Emma Harper"]
+  },
+  {
+    "id": "task5",
+    "title": "Planificar taller de habilidades sociales",
+    "statusLabel": "En Progreso",
+    "dueDate": "2024-09-01",
+    "status": "En Progreso",
+    "assignedToMe": true,
+    "itemType": "task",
+    "description": "Desarrollar el contenido y materiales para el próximo taller de habilidades sociales.",
+    "tags": ["taller", "planificación"]
+  },
+  { 
+    "id": "eventTest-task-case1-1", 
+    "title": "Contactar empleador potencial de Emma Harper", 
+    "statusLabel": "Completada", 
+    "caseId": "case1", 
+    "dueDate": "2024-02-20", 
+    "status": "Completada", 
+    "assignedToMe": true, 
+    "itemType": "task", 
+    "description": "Se contactó con ACME Corp respecto a la solicitud de Emma Harper. Pendiente de respuesta.", 
+    "tags": ["empleo", "Emma Harper"] 
+  },
+  { 
+    "id": "eventTest-task-case1-2", 
+    "title": "Inscribir a Lucas Harper en programa extraescolar", 
+    "statusLabel": "En Progreso", 
+    "caseId": "case1", 
+    "dueDate": "2024-03-15", 
+    "status": "En Progreso", 
+    "assignedToMe": true, 
+    "itemType": "task", 
+    "description": "Recopilar documentación y completar formularios para el programa 'Jóvenes Creativos' para Lucas Harper.", 
+    "tags": ["extraescolar", "Lucas Harper", "inscripción"] 
+  },
+  { 
+    "id": "eventTest-task-case1-3", 
+    "title": "Buscar opciones de alquiler a largo plazo para Emma Harper", 
+    "statusLabel": "Por Hacer", 
+    "caseId": "case1", 
+    "dueDate": "2024-04-25", 
+    "status": "Por Hacer", 
+    "assignedToMe": true, 
+    "itemType": "task", 
+    "tags": ["vivienda", "Emma Harper", "alquiler"] 
+  },
+  { 
+    "id": "eventTest-task-case1-4", 
+    "title": "Preparar documentos para solicitud de ayuda infantil (Lucas Harper)", 
+    "statusLabel": "Asignada", 
+    "caseId": "case1", 
+    "dueDate": "2024-05-25", 
+    "status": "Asignada", 
+    "assignedToMe": false, 
+    "itemType": "task", 
+    "description": "Colaborar con Emma Harper para reunir los documentos necesarios para la ayuda por hijo para Lucas Harper.", 
+    "tags": ["ayuda social", "Lucas Harper", "documentación"] 
+  },
+  { 
+    "id": "eventTest-task-case1-5", 
+    "title": "Revisar presupuesto familiar con Emma Harper", 
+    "statusLabel": "Completada", 
+    "caseId": "case1", 
+    "dueDate": "2024-06-15", 
+    "status": "Completada", 
+    "assignedToMe": true, 
+    "itemType": "task", 
+    "description": "Sesión realizada. Se identificaron áreas de ajuste en el presupuesto de Emma Harper.", 
+    "tags": ["presupuesto", "Emma Harper", "finanzas"] 
+  },
+  { 
+    "id": "eventTest-task-case1-6", 
+    "title": "Evaluar impacto de mudanza de Ana en presupuesto de Emma Harper", 
+    "statusLabel": "Por Hacer", 
+    "caseId": "case1", 
+    "dueDate": "2024-07-05", 
+    "status": "Por Hacer", 
+    "assignedToMe": true, 
+    "itemType": "task", 
+    "description": "Calcular nuevos gastos de vivienda y subsistencia para Emma Harper tras la mudanza de Ana Torres.", 
+    "tags": ["presupuesto", "vivienda", "Emma Harper"] 
+  },
+  { 
+    "id": "eventTest-task-case1-7", 
+    "title": "Buscar apoyo psicológico para Lucas Harper (transición)", 
+    "statusLabel": "Pendiente", 
+    "caseId": "case1", 
+    "dueDate": "2024-07-18", 
+    "status": "Pendiente", 
+    "assignedToMe": true, 
+    "itemType": "task", 
+    "description": "Identificar servicios de psicología infantil para ayudar a Lucas Harper con la adaptación a los cambios en el hogar.", 
+    "tags": ["salud mental", "Lucas Harper", "transición"] 
+  }
+]

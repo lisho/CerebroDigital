@@ -1,0 +1,33 @@
+
+[
+  {
+    "id": "cat1",
+    "name": "Asistencia de Vivienda",
+    "iconIdentifier": "HousingIcon",
+    "resources": [
+      { "id": "res1a", "category": "cat1", "name": "Programa de Refugio de la Ciudad", "description": "Refugio de emergencia y vivienda de transición para personas y familias sin hogar.", "contact": "555-1234", "website": "https://example.city.gov/shelter" },
+      { "id": "res1b", "category": "cat1", "name": "Corp de Asistencia de Alquiler", "description": "Subsidios y apoyo para inquilinos de bajos ingresos para prevenir el desalojo.", "contact": "info@rentassist.org", "website": "https://rentassist.org" },
+      { "id": "res1c", "category": "cat1", "name": "Vivienda Protegida para Mayores", "description": "Opciones de vivienda asequible y con servicios para personas mayores.", "contact": "555-SENIOR", "website": "https://seniorhousingproject.org" }
+    ]
+  },
+  {
+    "id": "cat2",
+    "name": "Servicios de Salud Mental",
+    "iconIdentifier": "MentalHealthIcon",
+    "resources": [
+      { "id": "res2a", "category": "cat2", "name": "Clínica Comunitaria de Salud Mental", "description": "Consejería, terapia individual y grupal, y servicios psiquiátricos a bajo costo.", "contact": "555-5678", "website": "https://communitymh.org" },
+      { "id": "res2b", "category": "cat2", "name": "Línea de Crisis Nacional", "description": "Soporte 24/7 para crisis de salud mental y prevención del suicidio.", "contact": "988 (Nacional)", "website": "https://988lifeline.org" },
+      { "id": "res2c", "category": "cat2", "name": "Centro de Apoyo para Adicciones", "description": "Programas de tratamiento y recuperación para abuso de sustancias.", "contact": "recovery@supportcenter.org", "website": "https://addictionsupport.org" }
+    ]
+  },
+  {
+    "id": "cat3",
+    "name": "Seguridad Alimentaria",
+    "iconIdentifier": "FoodIcon",
+    "resources": [
+      { "id": "res3a", "category": "cat3", "name": "Banco de Alimentos Local Central", "description": "Proporciona comestibles y productos frescos a individuos y familias necesitadas.", "contact": "555-FOOD", "website": "https://localfoodbank.org" },
+      { "id": "res3b", "category": "cat3", "name": "Programa de Asistencia SNAP", "description": "Información y ayuda para la solicitud de beneficios del Programa de Asistencia Nutricional Suplementaria.", "contact": "contact@snaphelp.gov", "website": "https://fns.usda.gov/snap" },
+      { "id": "res3c", "category": "cat3", "name": "Comedores Comunitarios del Sur", "description": "Ofrece comidas calientes gratuitas a personas de la comunidad.", "contact": "kitchen@southcommunity.org", "website": "https://southcommunitykitchen.org" }
+    ]
+  }
+]
