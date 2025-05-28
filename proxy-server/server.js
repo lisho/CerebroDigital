@@ -3,8 +3,20 @@ const axios = require('axios');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } = require('@google/generative-ai');
+const dotenv = require('dotenv');
+const db = require('./models'); // Imports from models/index.js
 
 dotenv.config();
+
+const { sequelize } = db; // Get sequelize instance from db object
+// All models are also available in the db object e.g. db.User, db.Case
+
+const caseRoutes = require('./routes/caseRoutes');
+const clientNoteRoutes = require('./routes/clientNoteRoutes');
+const userRoutes = require('./routes/userRoutes');
+const resourceRoutes = require('./routes/resourceRoutes');
+const scheduleEventRoutes = require('./routes/scheduleEventRoutes');
+const taskRoutes = require('./routes/taskRoutes');
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -12,6 +24,14 @@ const port = process.env.PORT || 3001;
 // Middleware
 app.use(cors({ origin: process.env.CLIENT_ORIGIN_URL }));
 app.use(express.json());
+
+// Mount case routes
+app.use('/api/cases', caseRoutes);
+app.use('/api/client-notes', clientNoteRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/resources', resourceRoutes);
+app.use('/api/schedule-events', scheduleEventRoutes);
+app.use('/api/tasks', taskRoutes);
 
 const MODEL_NAME = "gemini-pro"; // Or allow client to specify if needed
 
@@ -116,6 +136,20 @@ app.post('/api/v1/chat/send', async (req, res) => {
     }
 });
 
-app.listen(port, () => {
+app.listen(port, async () => { // Made this async to await sequelize.authenticate()
     console.log(`Proxy server listening on port ${port}`);
+
+    try {
+        await sequelize.authenticate();
+        console.log('Connection to the database has been established successfully.');
+
+        // Sync models with the database
+        await sequelize.sync({ alter: true });
+        console.log('Models synchronized with the database.');
+
+    } catch (error) {
+        console.error('Unable to connect to the database or synchronize models:', error);
+    }
 });
+
+module.exports = db; // Export the whole db object (sequelize instance + models)
